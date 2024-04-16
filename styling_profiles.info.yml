@@ -6,4 +6,4 @@ core_version_requirement: ^9.5 || ^10
 configure: styling_profiles.settings_form
 
 dependencies:
-  - iqual:iq_barrio_helper
+  - iq_barrio_helper:iq_barrio_helper
