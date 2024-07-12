@@ -22,15 +22,13 @@ class ProfileForm extends EntityForm {
    *   The entity repository service.
    * @param \Drupal\iq_scss_compiler\Service\CompilationService $compilationService
    *   The compilation service.
-   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
-   *   The messenger.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config
    *   The config factory.
    */
   public function __construct(
-  protected IqBarrioService $iqBarrioService,
-  protected CompilationService $compilationService,
-  protected ConfigFactoryInterface $config
+    protected IqBarrioService $iqBarrioService,
+    protected CompilationService $compilationService,
+    protected ConfigFactoryInterface $config,
   ) {
   }
 
