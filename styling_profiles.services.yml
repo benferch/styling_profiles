@@ -6,7 +6,7 @@ services:
       - { name: cache.context }
   styling_profile.service.sass_manager:
     class: Drupal\styling_profiles\Service\SassManager
-    arguments: ['@iq_barrio_helper.iq_barrio_service']
+    arguments: ['@iq_barrio_helper.iq_barrio_service', '%app.root%']
   styling_profile.service.rule_handler_manager:
     class: Drupal\styling_profiles\Service\RuleHandlerManager
     parent: default_plugin_manager
