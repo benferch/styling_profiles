@@ -2,7 +2,6 @@
 
 namespace Drupal\styling_profiles\Service;
 
-use Drupal\Core\DrupalKernelInterface;
 use Drupal\iq_barrio_helper\Service\iqBarrioService;
 use Drupal\styling_profiles\Entity\StylingProfile;
 
@@ -18,19 +17,24 @@ class SassManager {
    */
   protected $barrioService = NULL;
 
-  protected DrupalKernelInterface $drupalKernel;
+  /**
+   * The app root.
+   *
+   * @var string
+   */
+  protected string $root;
 
   /**
    * Creates a new SassManager.
    *
    * @param \Drupal\iq_barrio_helper\Service\iqBarrioService $barrioService
    *   The barrio helper service.
-   * @param \Drupal\Core\AppRootFactory $appRootFactory
-   *   The app root factory.
+   * @param string $root
+   *   The app root.
    */
-  public function __construct(iqBarrioService $barrioService, DrupalKernelInterface $drupalKernel) {
+  public function __construct(iqBarrioService $barrioService, $root) {
     $this->barrioService = $barrioService;
-    $this->drupalKernel = $drupalKernel;
+    $this->root = $root;
   }
 
   /**
@@ -47,8 +51,8 @@ class SassManager {
 
     // Clone stylesheets from custom themes.
     $themes = [
-      $this->drupalKernel->getContainer()->getParameter('app.root') . '/themes/custom/iq_barrio',
-      $this->drupalKernel->getContainer()->getParameter('app.root') . '/themes/custom/iq_custom',
+      $this->root . '/themes/custom/iq_barrio',
+      $this->root . '/themes/custom/iq_custom',
     ];
 
     foreach ($themes as $theme) {
@@ -74,8 +78,8 @@ class SassManager {
    */
   public function writeDefinitionsFile(StylingProfile $profile) {
     $stylingValues = $profile->get('styles');
-    $pathDefinitionTarget = $this->drupalKernel->getContainer()->getParameter('app.root') . '/sites/default/files/styling_profiles/' . $profile->id() . '/iq_barrio/resources/sass/_definitions.scss';
-    $pathDefinitionSource = $this->drupalKernel->getContainer()->getParameter('app.root') . '/themes/custom/iq_barrio/resources/sass/_template.scss.txt';
+    $pathDefinitionTarget = $this->root . '/sites/default/files/styling_profiles/' . $profile->id() . '/iq_barrio/resources/sass/_definitions.scss';
+    $pathDefinitionSource = $this->root . '/themes/custom/iq_barrio/resources/sass/_template.scss.txt';
 
     if (!empty($stylingValues)) {
       $this->barrioService->writeDefinitionsFile(
